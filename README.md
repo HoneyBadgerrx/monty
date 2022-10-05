@@ -1,1 +1,1 @@
-# monty
+an interpreter for monty bytecode
