@@ -46,5 +46,6 @@ void pop(stack_t **head, unsigned int n);
 void pall(stack_t **head, unsigned int n);
 void free_stack_t(stack_t *head);
 void pint(stack_t **head, unsigned int n);
+void nop(stack_t **head, unsigned int n);
 
 #endif /* LACK_H*/

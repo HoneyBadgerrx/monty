@@ -2,6 +2,7 @@
 instruction_t ops[] = {
 	{"push", push},
 	{"pall", pall},
+	{"nop", nop},
 	{NULL, NULL}
 };
 /**

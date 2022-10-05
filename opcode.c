@@ -12,12 +12,16 @@ int kabir(char *str, char opstr[], int *factor)
 	int i = 0, q, flag = 0;
 	char *k;
 
+	for (i = 0; str[i] == ' '; ++i)
+		;
+	if (str[i] == '\n' || !str[i])
+		return (2);
 	for (i = 0; str[i] != '\n'; ++i)
 	{
-		while (str[i] == ' ')
-			++i;
+		for (;str[i] == ' '; ++i)
+			;
 		k = malloc(300);
-		for (q = 0; str[i] != ' ' && str[i] != '\n'; ++q, ++i)
+		for (q = 0; str[i] != ' ' && str[i] != '\n' && str[i]; ++q, ++i)
 			k[q] = str[i];
 		k[q] = '\0';
 		if (flag == 1)
@@ -33,9 +37,7 @@ int kabir(char *str, char opstr[], int *factor)
 	for (i = 0; ops[i].opcode; ++i)
 	{
 		if (strcmp(opstr, ops[i].opcode) == 0)
-		{
 			return (i);
-		}
 	}
 	return (-1);
 }
@@ -83,4 +85,9 @@ void pall(stack_t **head, unsigned int n)
 		printf("%d\n", p->n);
 		p = p->next;
 	}
+}
+void nop(stack_t **head, unsigned int n)
+{
+	(void)n;
+	(void)head;
 }
