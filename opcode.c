@@ -52,6 +52,12 @@ void push(stack_t **head, unsigned int n)
 	if (p == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		while (*head)
+		{
+			p = head->next;
+			free(head);
+			head = p;
+		}
 		exit(EXIT_FAILURE);
 	}
 	p->n = n;
