@@ -1,11 +1,17 @@
 #include "l.h"
-instruction_t ops[] = {
-	{"push", push},
-	{"pall", pall},
-	{NULL, NULL}
-};
+/**
+ * main - main
+ * @argc: argc
+ * @argv: argv
+ * Return: int
+ */
 int main(int argc, char *argv[])
 {
+	instruction_t ops[] = {
+		{"push", push},
+		{"pall", pall},
+		{NULL, NULL}
+	};
 	stack_t *head = NULL;
 	char *str = NULL, opstr[1024];
 	int line = 1, factor = 0;

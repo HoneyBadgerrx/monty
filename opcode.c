@@ -1,11 +1,11 @@
 #include "l.h"
 
-/*
- * kabir - kabirs
- * @sre: commands
- * @opstr: opcode
- * @factor: operand
- * Return: index or -1
+/**
+ * kabir - kabirus
+ * @str: string
+ * @opstr: opstr
+ * @factor: factors
+ * Return: void
  */
 int kabir(char *str, char opstr[], int *factor)
 {
@@ -52,7 +52,6 @@ void push(stack_t **head, unsigned int n)
 	if (p == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		free_stack_t(*head);
 		exit(EXIT_FAILURE);
 	}
 	p->n = n;
