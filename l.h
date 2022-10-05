@@ -1,8 +1,13 @@
 #ifndef LACK_H
 #define LACK_H
 
+#define  _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -34,15 +39,12 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern stack_t ops[] = {
-	{"push", push},
-	{"pal", pall},
-	{NULL, NULL}
-};
-stack_t *push(**head, unsigned int n);
-int kabir(char *str, char * opstr, int *factor);
-stack_t *pop(**head, unsigned int n);
-stack_t *pall(**head, unsigned int n);
-stack_t *pint(**head, unsigned int n);
+extern instruction_t ops[];
+void push(stack_t **head, unsigned int n);
+int kabir(char *str, char opstr[], int *factor);
+void pop(stack_t **head, unsigned int n);
+void pall(stack_t **head, unsigned int n);
+void free_stack_t(stack_t *head);
+void pint(stack_t **head, unsigned int n);
 
 #endif /* LACK_H*/

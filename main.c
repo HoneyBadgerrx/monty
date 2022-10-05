@@ -1,30 +1,44 @@
 #include "l.h"
-void main(int argc, char *argv[])
+instruction_t ops[] = {
+	{"push", push},
+	{"pall", pall},
+	{NULL, NULL}
+};
+int main(int argc, char *argv[])
 {
 	stack_t *head = NULL;
-	char *str = NULL, *opstr = NULL;
-	int i, count = 0, n = 0, line = 1, *factor;
+	char *str = NULL, opstr[1024];
+	int line = 1, factor = 0;
+	size_t count = 0;
+	FILE *i;
 
 	if (argc != 2)
 	{
-		fprintf(2, "USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
+		free_stack_t(head);
 		exit(EXIT_FAILURE);
 	}
-	i = open(argv[1], O_RDONLY);
-	if (i == -1)
+	i = fopen(argv[1], "r");
+	if (i == NULL)
 	{
-		fprintf(2, "Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		free_stack_t(head);
 		exit(EXIT_FAILURE);
 	}
 	while (getline(&str, &count, i) != -1)
 	{
-		if (kabir(str, opstr, factor) == -1)
+		if (kabir(str, opstr, &factor) == -1)
 		{
-			fprintf(2, "L%d: unknown instruction \n", line, opstr);
+			fprintf(stderr, "L%d: unknown instruction %s\n", line, opstr);
+			free_stack_t(head);
 			exit(EXIT_FAILURE);
 		}
 		else
-			ops[kabir(str, opstr, factor)]->f(&head, factor);
+		{
+			ops[kabir(str, opstr, &factor)].f(&head, factor);
+		}
 		++line;
 	}
+	free_stack_t(head);
+	return (0);
 }
