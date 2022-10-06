@@ -5,6 +5,7 @@ instruction_t ops[] = {
 	{"nop", nop},
 	{NULL, NULL}
 };
+char *arg;
 /**
  * main - main
  * @argc: argc
@@ -14,8 +15,8 @@ instruction_t ops[] = {
 int main(int argc, char *argv[])
 {
 	stack_t *head = NULL;
-	char *str = NULL, opstr[1024];
-	int line = 1, factor = 0;
+	char *str = NULL, *opstr = NULL;
+	int line = 1;
 	size_t count = 0;
 	FILE *i;
 
@@ -34,18 +35,16 @@ int main(int argc, char *argv[])
 	}
 	while (getline(&str, &count, i) != -1)
 	{
-		if (kabir(str, opstr, &factor) == -1)
+		if (kabir(str, opstr) == -1)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line, opstr);
 			free_stack_t(head);
 			exit(EXIT_FAILURE);
 		}
 		else
-		{
-			ops[kabir(str, opstr, &factor)].f(&head, factor);
-		}
+			ops[kabir(str, opstr)].f(&head, line);
 		++line;
 	}
 	free_stack_t(head);
-	return (0);
+	return (EXIT_SUCCESS);
 }

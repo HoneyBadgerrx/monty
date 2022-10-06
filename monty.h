@@ -2,6 +2,7 @@
 #define LACK_H
 
 #define  _GNU_SOURCE
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,8 +41,10 @@ typedef struct instruction_s
 } instruction_t;
 
 extern instruction_t ops[];
+extern char *arg;
 void push(stack_t **head, unsigned int n);
-int kabir(char *str, char opstr[], int *factor);
+int kabir(char *str, char *opstr);
+int digimon(char *arg);
 void pop(stack_t **head, unsigned int n);
 void pall(stack_t **head, unsigned int n);
 void free_stack_t(stack_t *head);

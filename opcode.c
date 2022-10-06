@@ -1,5 +1,22 @@
 #include "monty.h"
+/**
+ * digimon - digit check
+ * @arg: digit to be checked
+ * Return: if digit or not
+ */
+int digimon(char *arg)
+{
+	int i;
 
+	for (i = 0; arg[i]; i++)
+	{
+		if (arg[i] == '-' && i == 0)
+			continue;
+		if (isdigit(arg[i]) == 0)
+			return (1);
+	}
+	return (0);
+}
 /**
  * kabir - kabirus
  * @str: string
@@ -7,33 +24,13 @@
  * @factor: factors
  * Return: void
  */
-int kabir(char *str, char opstr[], int *factor)
+int kabir(char *str, char *opstr)
 {
-	int i = 0, q, flag = 0;
-	char *k;
+	int i = 0;
 
-	for (i = 0; str[i] == ' '; ++i)
-		;
-	if (str[i] == '\n' || !str[i])
+	opstr = strtok(str, "\n\t\r ");
+	if (!opstr)
 		return (2);
-	for (i = 0; str[i] != '\n'; ++i)
-	{
-		for (;str[i] == ' '; ++i)
-			;
-		k = malloc(300);
-		for (q = 0; str[i] != ' ' && str[i] != '\n' && str[i]; ++q, ++i)
-			k[q] = str[i];
-		k[q] = '\0';
-		if (flag == 1)
-		{
-			*factor = atoi(k);
-			free(k);
-			break;
-		}
-		strcpy(opstr, k);
-		free(k);
-		flag = 1;
-	}
 	for (i = 0; ops[i].opcode; ++i)
 	{
 		if (strcmp(opstr, ops[i].opcode) == 0)
@@ -49,8 +46,18 @@ int kabir(char *str, char opstr[], int *factor)
  */
 void push(stack_t **head, unsigned int n)
 {
-	stack_t *p = malloc(sizeof(stack_t));
+	stack_t *p;
+	char *arg;
+	int q;
 
+	arg = strtok(NULL, "\n\r\t ");
+	if (!arg || digimon(arg))
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", n);
+		exit(EXIT_FAILURE);
+	}
+	q = atoi(arg);
+	p = malloc(sizeof(stack_t));
 	if (p == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
@@ -62,7 +69,7 @@ void push(stack_t **head, unsigned int n)
 		}
 		exit(EXIT_FAILURE);
 	}
-	p->n = n;
+	p->n = q;
 	if (*head)
 		(*head)->prev = p;
 	p->next = *head;
