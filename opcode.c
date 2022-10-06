@@ -53,14 +53,14 @@ void push(stack_t **head, unsigned int n)
 	arg = strtok(NULL, "\n\r\t ");
 	if (!arg || digimon(arg))
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", n);
+		fprintf(stdout, "L%u: usage: push integer\n", n);
 		exit(EXIT_FAILURE);
 	}
 	q = atoi(arg);
 	p = malloc(sizeof(stack_t));
 	if (p == NULL)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
+		fprintf(stdout, "Error: malloc failed\n");
 		while (*head)
 		{
 			p = (*head)->next;

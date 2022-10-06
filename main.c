@@ -5,7 +5,6 @@ instruction_t ops[] = {
 	{"nop", nop},
 	{NULL, NULL}
 };
-char *arg;
 /**
  * main - main
  * @argc: argc
@@ -22,14 +21,14 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		fprintf(stderr, "USAGE: monty file\n");
+		fprintf(stdout, "USAGE: monty file\n");
 		free_stack_t(head);
 		exit(EXIT_FAILURE);
 	}
 	i = fopen(argv[1], "r");
 	if (i == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		fprintf(stdout, "Error: Can't open file %s\n", argv[1]);
 		free_stack_t(head);
 		exit(EXIT_FAILURE);
 	}
@@ -37,7 +36,7 @@ int main(int argc, char *argv[])
 	{
 		if (kabir(str, opstr) == -1)
 		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", line, opstr);
+			fprintf(stdout, "L%d: unknown instruction %s\n", line, opstr);
 			free_stack_t(head);
 			exit(EXIT_FAILURE);
 		}

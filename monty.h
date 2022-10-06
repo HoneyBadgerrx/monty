@@ -41,7 +41,6 @@ typedef struct instruction_s
 } instruction_t;
 
 extern instruction_t ops[];
-extern char *arg;
 void push(stack_t **head, unsigned int n);
 int kabir(char *str, char *opstr);
 int digimon(char *arg);
